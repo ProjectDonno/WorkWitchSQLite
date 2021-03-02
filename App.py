@@ -1,4 +1,6 @@
 import sqlite3
+import traceback
+import sys
 
 try:
     sql_conn = sqlite3.connect('ChainCarDealerships.db')
@@ -34,6 +36,11 @@ try:
 
 except sqlite3.Error as error:
     print("Ошибка при подключении к sqlite:", error)
+    print("Класс исключения:", error.__class__)
+    print("Исключение", error.args)
+    print("Печать подробностей исключения SQLite: ")
+    exc_type, exc_value, exc_tb = sys.exc_info()
+    print(traceback.format_exception(exc_type, exc_value, exc_tb))
 finally:
     if(sql_conn):
         sql_conn.close()
